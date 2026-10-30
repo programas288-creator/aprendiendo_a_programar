@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐾 Peluquería Canina</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen" class="login-screen">
+    <div class="login-card">
+        <h1>🐾 Peluquería Canina</h1>
+        <p class="subt">Inicia sesión</p>
+        <form id="form-login">
+            <input name="username" placeholder="Usuario" required autocomplete="username">
+            <input name="password" type="password" placeholder="Contraseña" required autocomplete="current-password">
+            <button type="submit">Entrar</button>
+            <p id="login-error" class="error-msg"></p>
+        </form>
+        <p class="hint">Admin inicial: <b>admin</b> / <b>123456</b></p>
+    </div>
+</div>
+
+<!-- APP -->
+<div id="app-screen" class="hidden">
+    <header>
+        <h1>🐾 Peluquería Canina</h1>
+        <div class="user-info">
+            <span id="user-label"></span>
+            <button id="btn-logout" class="logout-btn">Salir</button>
+        </div>
+    </header>
+
+    <nav id="nav-tabs">
+        <button class="tab-btn active" data-tab="consultas">📄 Historial</button>
+        <button class="tab-btn" data-tab="mascotas">🐕 Mascotas</button>
+        <button class="tab-btn emp-only" data-tab="cortes">✂️ Nuevo Corte</button>
+        <button class="tab-btn admin-only" data-tab="admin">👑 Administración</button>
+    </nav>
+
+    <main>
+        <!-- HISTORIAL -->
+        <section id="tab-consultas" class="tab-content active">
+            <h2>Historial de Consultas</h2>
+            <table>
+                <thead><tr>
+                    <th>Fecha</th><th>Mascota</th><th>Raza</th><th>Color</th>
+                    <th>Dueño</th><th>Empleado</th><th>Corte</th><th>PDF</th>
+                </tr></thead>
+                <tbody id="tabla-consultas"></tbody>
+            </table>
+        </section>
+
+        <!-- MASCOTAS -->
+        <section id="tab-mascotas" class="tab-content">
+            <h2>Mascotas</h2>
+            <div id="form-mascota-wrap" class="emp-only">
+                <h3>Registrar Mascota</h3>
+                <form id="form-mascota">
+                    <select name="dueno_id" id="select-dueno" required>
+                        <option value="">-- Selecciona un dueño --</option>
+                    </select>
+                    <input name="nombre" placeholder="Nombre mascota" required>
+                    <input name="raza" placeholder="Raza">
+                    <input name="color_pelaje" placeholder="Color de pelaje">
+                    <textarea name="observaciones" placeholder="Observaciones"></textarea>
+                    <button type="submit">Guardar Mascota</button>
+                </form>
+            </div>
+            <h3>Listado</h3>
+            <table>
+                <thead><tr><th>ID</th><th>Nombre</th><th>Raza</th><th>Color</th><th>Dueño</th></tr></thead>
+                <tbody id="tabla-mascotas"></tbody>
+            </table>
+        </section>
+
+        <!-- CORTES -->
+        <section id="tab-cortes" class="tab-content">
+            <h2>Registrar Corte</h2>
+            <p class="info-msg">Empleado a cargo: <b id="empleado-actual">—</b></p>
+            <form id="form-corte">
+                <select name="mascota_id" id="select-mascota" required>
+                    <option value="">-- Selecciona una mascota --</option>
+                </select>
+                <input name="tipo_corte" placeholder="Tipo de corte" required>
+                <textarea name="notas_adicionales" placeholder="Notas adicionales"></textarea>
+                <button type="submit">Registrar Corte</button>
+            </form>
+        </section>
+
+        <!-- ADMIN -->
+        <section id="tab-admin" class="tab-content">
+            <h2>👑 Administración</h2>
+
+            <h3>Crear Empleado (con acceso)</h3>
+            <form id="form-nuevo-empleado">
+                <input name="nombre" placeholder="Nombre del empleado" required>
+                <input name="especialidad" placeholder="Especialidad (ej: Corte de raza)">
+                <input name="username" placeholder="Usuario para login" required>
+                <input name="password" type="password" placeholder="Contraseña" required>
+                <button type="submit">Crear Empleado</button>
+            </form>
+
+            <h3>Crear Dueño (con acceso)</h3>
+            <form id="form-nuevo-dueno">
+                <input name="nombre" placeholder="Nombre" required>
+                <input name="apellidos" placeholder="Apellidos" required>
+                <input name="direccion" placeholder="Dirección">
+                <input name="telefono_referencia" placeholder="Teléfono de referencia">
+                <input name="username" placeholder="Usuario para login" required>
+                <input name="password" type="password" placeholder="Contraseña" required>
+                <button type="submit">Crear Dueño</button>
+            </form>
+
+            <h3>Usuarios del sistema</h3>
+            <table>
+                <thead><tr>
+                    <th>ID</th><th>Usuario</th><th>Rol</th><th>Nombre</th><th>Creado</th><th>Cambiar contraseña</th>
+                </tr></thead>
+                <tbody id="tabla-usuarios"></tbody>
+            </table>
+        </section>
+    </main>
+</div>
+
+<div id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
